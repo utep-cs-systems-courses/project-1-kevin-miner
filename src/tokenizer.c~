@@ -1,0 +1,44 @@
+#include "tokenizer.h"
+#include <stdio.h>
+
+// Return true for any whitespace char.
+int space_char(char c) {
+  if (c == ' ' || c == '\t')
+    return 1;
+  return 0;
+}
+
+// Return true for any non whitespace char.
+int non_space_char(char c) {
+  if (space_char(c) || c == '\0')
+    return 0;
+  return 1;
+}
+
+// Return pointer to the first character of a word.
+char *word_start(char *str) {
+  int i = 0;
+  while (space_char(str[i]))
+    i++;
+  return &str[i];
+}
+
+// Return the char after end of word.
+// Will return an extra byte
+char *word_terminator(char *word) {
+  int i = 0;
+  while (non_space_char(word[i]))
+    i++;
+  return &word[i];
+}
+
+int count_words(char *str) {
+  int c = 0;
+  char *p = str;
+  while (*p) {
+    p = word_start(p);
+    p = word_terminator(p);
+    c++;
+  }
+  return c;
+}
