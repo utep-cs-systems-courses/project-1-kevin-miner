@@ -1,6 +1,6 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "tokenizer.h"
-#include <stdio.h>
 
 // Return true for any whitespace char.
 int space_char(char c) {
@@ -49,9 +49,11 @@ int count_words(char *str) {
 // Allocates a word in memory.
 char *copy_str(char *inStr, short len) {
   int i = 0;
-  char *p = (char *) malloc((len + 1) * sizeof(char));
-  while (p[i] = inStr[i])
+  char *p = (char *) malloc((len + 1));
+  while (i < len) {
+    p[i] = inStr[i];
     i++;
+  }
   return p;
 }
 
@@ -63,24 +65,32 @@ char **tokenize(char *str) {
   char *wordPointer = word_start(str);
   short strSize = count_words(str);           //get length of input
   char **tokens = (char **) malloc((strSize + 1) * sizeof(char *));
+  
   for (i = 0; i < strSize; i++) {
     wordPointer = word_start(wordPointer);    //wordPointer to word start
     dummyPointer = wordPointer;               //dummyPointer is at the start 
     wordPointer = word_terminator(wordPointer);  //wordPointer is at the end
     len = wordPointer - dummyPointer;
-
     tokens[i] = copy_str(dummyPointer, len);
-    printf("%s", (**tokens)++);
   }
-  tokens[i+1] = copy_str('\0', 1);
   return tokens;
 }
 
+// Print every token nicely in a list.
 void print_tokens(char **tokens) {
   int i = 0;
-  while (i<2) {
-    printf("%s", *tokens[i]);
-    //tokens++;
+  while (tokens[i]) {
+    printf("token[%d]: %s\n", i, tokens[i]);
     i++;
   }
+}
+
+// Free all tokens
+void free_tokens(char **tokens) {
+  int i = 0;
+  while (tokens[i]) {
+    free(tokens[i]);
+    i++;
+  }
+  free(tokens);
 }

@@ -7,9 +7,10 @@ void main(void) {
   while (1) {
     printf("%s", "> ");
     fgets(in, 101, stdin);
-    printf("%s", in);
+    //printf("%s", in);
 
-    char **tokens = tokenize(in);
-    //print_tokens(tokens);
+    char **tokens = tokenize(in);    
+    print_tokens(tokens);
+    //free_tokens(tokens);
   }
 }
