@@ -11,6 +11,7 @@ void main(void) {
 
     char **tokens = tokenize(in);    
     print_tokens(tokens);
-    //free_tokens(tokens);
+    free_tokens(tokens);
+    print_tokens(tokens);
   }
 }
