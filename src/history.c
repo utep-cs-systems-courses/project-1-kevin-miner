@@ -56,8 +56,9 @@ void free_history(List *list) {
   Item *curr;
   while (p != NULL) {
     curr = p;        //Temporal holder so not to loose position
+    free(p->str);
     free(p);
-    p = p->next;      
+    p = curr->next;      
   }
   free(list);
 }
